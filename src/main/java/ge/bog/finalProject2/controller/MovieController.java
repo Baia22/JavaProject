@@ -2,7 +2,6 @@ package ge.bog.finalProject2.controller;
 
 import ge.bog.finalProject2.dto.Error;
 import ge.bog.finalProject2.dto.Movie;
-import ge.bog.finalProject2.entity.MovieEntity;
 import ge.bog.finalProject2.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,7 +17,9 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping(value = "get-movies", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String genre, @RequestParam(required = false) String tag) {
+    public ResponseEntity<?> getMovies(@RequestParam(required = false) String title,
+                                       @RequestParam(required = false) String genre,
+                                       @RequestParam(required = false) String tag) {
         if (title == null && genre == null && tag == null) {
             return ResponseEntity.badRequest().body(new Error("You should provide one of the params: title, genre or tag!"));
         }
@@ -39,7 +40,8 @@ public class MovieController {
     }
 
     @GetMapping(value = "get-movie", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getMovie(@RequestParam(required = false) String title, @RequestParam(required = false) Long movieId) {
+    public ResponseEntity<?> getMovie(@RequestParam(required = false) String title,
+                                      @RequestParam(required = false) Long movieId) {
         if (title == null && movieId == null) {
             return ResponseEntity.badRequest().body(new Error("You should provide title or movieId!"));
         }

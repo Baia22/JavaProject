@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,7 +24,7 @@ public class RecentlyPopularMovieEntity {
     @Column(name = "view_count", nullable = false)
     private Long viewCount;
     @Column(name = "insertion_date", nullable = false)
-    private LocalDateTime insertionDate = LocalDateTime.now();;
+    private LocalDateTime insertionDate = LocalDateTime.now();
 
     public RecentlyPopularMovieEntity(Long movieId, Long viewCount) {
         this.movieId = movieId;

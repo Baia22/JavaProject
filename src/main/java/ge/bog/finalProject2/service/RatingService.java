@@ -37,7 +37,7 @@ public class RatingService {
 
     public void addRating(Rating rating) throws InstanceAlreadyExistsException {
         if (movieRepository.getReferenceById(rating.getMovieId()).getRatings().stream()
-                .anyMatch(ratingEntity -> ratingEntity.getUserId() == rating.getUserId()) ) {
+                .anyMatch(ratingEntity -> ratingEntity.getUserId().equals(rating.getUserId())) ) {
             throw new InstanceAlreadyExistsException("This user has already rated this movie!");
         }
         RatingEntity ratingEntity = new RatingEntity(rating.getUserId(), rating.getMovieId(), rating.getRating(), (long)0);

@@ -1,7 +1,6 @@
 package ge.bog.finalProject2.controller;
 
 import ge.bog.finalProject2.dto.Error;
-import ge.bog.finalProject2.dto.Rating;
 import ge.bog.finalProject2.dto.Tag;
 import ge.bog.finalProject2.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ public class TagController {
     private TagService tagService;
 
     @GetMapping(value = "get-tags", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getTags(@RequestParam(required = false) String title, @RequestParam(required = false) Long movieId) {
+    public ResponseEntity<?> getTags(@RequestParam(required = false) String title,
+                                     @RequestParam(required = false) Long movieId) {
         if (title == null && movieId == null) {
             return ResponseEntity.badRequest().body(new Error("You should provide one of the params: title or movieId!"));
         }

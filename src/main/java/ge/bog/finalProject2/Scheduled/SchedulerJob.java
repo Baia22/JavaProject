@@ -10,15 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-import org.springframework.stereotype.Component;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Configuration
 @EnableScheduling
-
 public class SchedulerJob {
     @Autowired
     MovieRepository movieRepository;
@@ -38,14 +36,14 @@ public class SchedulerJob {
         List<MovieEntity> movies = movieDao.getRecentlyViewedMovies();
 
         List<RecentlyPopularMovieEntity> recentlyPopularMovieEntities = movies.stream().map(movieEntity -> {
-            RecentlyPopularMovieEntity recentlyPopularMovieEntity =
-                    recentlyPopularMoviesDao.getRecentlyPopularMovie(movieEntity.getId());
-            if (recentlyPopularMovieEntity == null) {
-                return new RecentlyPopularMovieEntity(movieEntity.getId(), movieEntity.getRecentlyViewCount());
-            } else {
+            try {
+                RecentlyPopularMovieEntity recentlyPopularMovieEntity =
+                        recentlyPopularMoviesDao.getRecentlyPopularMovie(movieEntity.getId());
                 recentlyPopularMovieEntity.setViewCount(recentlyPopularMovieEntity.getViewCount()
                         + movieEntity.getRecentlyViewCount());
                 return recentlyPopularMovieEntity;
+            } catch (NoResultException e) {
+                return new RecentlyPopularMovieEntity(movieEntity.getId(), movieEntity.getRecentlyViewCount());
             }
         }).collect(Collectors.toList());
 

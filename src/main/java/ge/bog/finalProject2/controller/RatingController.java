@@ -17,7 +17,8 @@ public class RatingController {
     private RatingService ratingService;
 
     @GetMapping(value = "get-ratings", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getRatings(@RequestParam(required = false) String title, @RequestParam(required = false) Long movieId) {
+    public ResponseEntity<?> getRatings(@RequestParam(required = false) String title,
+                                        @RequestParam(required = false) Long movieId) {
         if (title == null && movieId == null) {
             return ResponseEntity.badRequest().body(new Error("You should provide one of the params: title or movieId!"));
         }

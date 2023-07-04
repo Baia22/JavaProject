@@ -57,8 +57,7 @@ public class MovieService {
         movieEntity.setViewCount(movieEntity.getViewCount() == null ? 0 : movieEntity.getViewCount() + 1);
         movieEntity.setRecentlyViewCount(movieEntity.getRecentlyViewCount() == null ? 0 : movieEntity.getRecentlyViewCount() + 1);
         movieRepository.save(movieEntity);
-        Movie movie = new Movie(movieEntity.getId(), movieEntity.getTitle(), movieEntity.getGenres(), movieEntity.getViewCount());
-        return movie;
+        return new Movie(movieEntity.getId(), movieEntity.getTitle(), movieEntity.getGenres(), movieEntity.getViewCount());
     }
 
     public List<Movie> getTopMovies() {

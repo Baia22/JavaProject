@@ -33,4 +33,3 @@ public class RatingEntity {
         this.timestamp = timestamp;
     }
 }
-//userId	movieId	rating	timestamp

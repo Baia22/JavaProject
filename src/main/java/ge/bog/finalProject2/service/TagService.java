@@ -37,10 +37,10 @@ public class TagService {
 
     public void addTag(Tag tag) throws InstanceAlreadyExistsException {
         if (movieRepository.getReferenceById(tag.getMovieId()).getTags().stream()
-                .anyMatch(tagEntity -> tagEntity.getTag() == tag.getTag()) ) {
+                .anyMatch(tagEntity -> tagEntity.getTag().equals(tag.getTag()))) {
             throw new InstanceAlreadyExistsException("This movie already has that tag!");
         }
-        TagEntity tagEntity = new TagEntity(tag.getUserId(), tag.getMovieId(), tag.getTag(), (long)0);
+        TagEntity tagEntity = new TagEntity(tag.getUserId(), tag.getMovieId(), tag.getTag(), 0);
         tagRepository.save(tagEntity);
     }
 }
